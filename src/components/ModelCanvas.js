@@ -3,9 +3,14 @@ import React, { Suspense, useRef, useEffect } from 'react';
 import { Canvas, useLoader } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import { MTLLoader, OBJLoader } from 'three-stdlib';
+import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
+import * as THREE from "three";
+
+
+
 
 function Model() {
-    const objRef = useRef();
+   /* const objRef = useRef();
 
     const materials = useLoader(MTLLoader, '/assets/models/bugatti.mtl');
     const obj = useLoader(OBJLoader, '/assets/models/bugatti.obj', (loader) => {
@@ -25,8 +30,15 @@ function Model() {
         }
     }, [obj]);
 
-    return obj ? <primitive object={obj} ref={objRef} scale={1} /> : null;
+    return obj ? <primitive object={obj} ref={objRef} scale={1} /> : null;*/
+
+    const fbx = useLoader(FBXLoader, '/assets/models/Space_Helmet_anim.fbx')
+   
+
+  return <primitive object={fbx} />
 }
+
+
 
 function ModelCanvas() {
     return (
