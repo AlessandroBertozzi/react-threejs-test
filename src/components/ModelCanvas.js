@@ -1,11 +1,9 @@
 // ModelCanvas.js
 import React, { Suspense, useRef, useEffect } from 'react';
-import { Canvas, useLoader } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
-import { MTLLoader, OBJLoader } from 'three-stdlib';
+import { Canvas, useLoader,useFrame } from '@react-three/fiber';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
-import * as THREE from "three";
-
+import * as THREE from 'three';
+import { OrbitControls, Stats as DreiStats } from '@react-three/drei';
 
 
 
@@ -32,11 +30,34 @@ function Model() {
 
     return obj ? <primitive object={obj} ref={objRef} scale={1} /> : null;*/
 
-    const fbx = useLoader(FBXLoader, '/assets/models/Space_Helmet_anim.fbx')
+  
+
+    const fbx = useLoader(FBXLoader, '/assets/models/PC_Nightmare_Mushroom.fbx');
+    const mixer = useRef(null);
+
+
+    useEffect(() => {
+        if (fbx.animations.length > 0) {
+            mixer.current = new THREE.AnimationMixer(fbx);
+            mixer.current.clipAction(fbx.animations[0]).play();
+        }return () => {
+            if (mixer.current) {
+                mixer.current.stopAllAction();
+                mixer.current = null;
+            }
+        };
+    }, [fbx]);
+
+    useFrame((state, delta) => {
+        if (mixer.current) mixer.current.update(delta);
+    });
+   // mixer = new THREE.AnimationMixer( fbx );
+   // mixer.clipAction( fbx.animations[ 0 ] ).play();
    
 
   return <primitive object={fbx} />
 }
+
 
 
 
