@@ -51,8 +51,7 @@ function Model() {
     useFrame((state, delta) => {
         if (mixer.current) mixer.current.update(delta);
     });
-   // mixer = new THREE.AnimationMixer( fbx );
-   // mixer.clipAction( fbx.animations[ 0 ] ).play();
+ 
    
 
   return <primitive object={fbx} />

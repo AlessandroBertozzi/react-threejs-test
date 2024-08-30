@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import NewThreadBox from './components/NewThreadBox';
 import ModelCanvas from './components/ModelCanvas';
 import MessageForm from "./components/ContinueThreadBox";
+import UI from './components/UI';
 
 function App() {
 
@@ -19,11 +20,14 @@ function App() {
     };
 
     return (
-        <div style={{display: 'flex', height: '100vh'}}>
-            <div style={{flex: 1, position: 'relative'}}>
+        <div style={{display: 'flex', height: '100vh', backgroundImage: 'url(/Image/io-centers-2673324_1920.jpg)',backgroundPosition: 'center',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            width: '100vw',
+            height: '100vh'}}>
+            
                 <ModelCanvas/>
-            </div>
-            <div style={{flex: 1, position: 'relative'}}>
+                <UI />
                 <NewThreadBox onThreadIdReceived={handleNewThread}/>
                 {threadId && (
                     <MessageForm
@@ -32,7 +36,7 @@ function App() {
                         setResponse={handleSetResponse}
                     />
                 )}
-            </div>
+            
         </div>
     );
 }
